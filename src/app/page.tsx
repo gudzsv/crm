@@ -9,6 +9,7 @@ export default function Home() {
         <StatusLabel status={Status.NotActive}>NotActive</StatusLabel>
         <StatusLabel status={Status.Pending}>Pending</StatusLabel>
         <StatusLabel status={Status.Suspended}>Suspended</StatusLabel>
+        <hr />
       </main>
       <footer>
         <p>footer</p>
