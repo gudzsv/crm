@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
 import Button from '@/app/components/button';
 import dynamic from 'next/dynamic.js';
+import { useState } from 'react';
 
 const CompanyFormModal = dynamic(() => import('./company-form-modal'), {
   ssr: false,
