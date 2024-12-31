@@ -1,8 +1,4 @@
-import React from 'react';
-
 import AddCompanyButton from '@/app/components/add-company-button';
-import ServerComponent from '@/app/components/server-component';
-import ClientComponent from '@/app/components/client-component';
 
 export default function Home() {
   return (
@@ -13,8 +9,6 @@ export default function Home() {
         <hr />
 
         <AddCompanyButton />
-        <ServerComponent />
-        <ClientComponent />
       </main>
       <footer>
         <p>footer</p>
