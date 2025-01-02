@@ -36,13 +36,13 @@ export interface CompanyFormProps {
 export default function CompanyForm({ onSubmit }: CompanyFormProps) {
   const queryClient = useQueryClient();
 
-  const { data: categories } = useQuery({
+  const { data: categories, isLoading: categoriesLoading } = useQuery({
     queryKey: ['categories'],
     queryFn: getCategories,
     staleTime: 10 * 1000,
   });
 
-  const { data: countries } = useQuery({
+  const { data: countries, isLoading: countriesLoading } = useQuery({
     queryKey: ['countries'],
     queryFn: getCountries,
     staleTime: 10 * 1000,
@@ -63,6 +63,11 @@ export default function CompanyForm({ onSubmit }: CompanyFormProps) {
     const countryTitle =
       countries?.find(({ id }) => id === values.countryId)?.title ?? '';
 
+    if (!categories || !countries) {
+      console.error('Categories or countries data is missing.');
+      return;
+    }
+
     await mutateAsync({
       ...values,
       categoryTitle,
@@ -73,6 +78,10 @@ export default function CompanyForm({ onSubmit }: CompanyFormProps) {
       onSubmit(values);
     }
   };
+
+  if (categoriesLoading || countriesLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
