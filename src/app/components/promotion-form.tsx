@@ -30,7 +30,11 @@ export default function PromotionForm({
 }: PromotionFormProps) {
   const queryClient = useQueryClient();
 
-  const { data: company } = useQuery({
+  const {
+    data: company,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ['companies', companyId],
     queryFn: () => getCompany(companyId),
     staleTime: 10 * 1000,
@@ -52,6 +56,10 @@ export default function PromotionForm({
   });
 
   const handleSubmit = async (values: PromotionFieldValues) => {
+    if (!company) {
+      return;
+    }
+
     await mutateAsync({
       ...values,
       discount: Number(values.discount) || 0,
@@ -63,6 +71,14 @@ export default function PromotionForm({
       onSubmit(values);
     }
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error loading company data.</div>;
+  }
 
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
@@ -85,7 +101,7 @@ export default function PromotionForm({
           />
           <LogoUploader square label="Image" placeholder="Upload photo" />
         </div>
-        <Button type="submit" disabled={isPending}>
+        <Button type="submit" disabled={isPending || !company}>
           Add promotion
         </Button>
       </Form>

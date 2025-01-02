@@ -1,5 +1,3 @@
-'use client';
-
 import Button from '@/app/components/button';
 import InputField from '@/app/components/input-field';
 import LogoUploader from '@/app/components/logo-uploader';
@@ -63,9 +61,9 @@ export default function CompanyForm({ onSubmit }: CompanyFormProps) {
     await mutateAsync({
       ...values,
       categoryTitle:
-        categories.find(({ id }) => id === values.categoryId)?.title ?? '',
+        categories?.find(({ id }) => id === values.categoryId)?.title ?? '',
       countryTitle:
-        countries.find(({ id }) => id === values.countryId)?.title ?? '',
+        countries?.find(({ id }) => id === values.countryId)?.title ?? '',
     });
 
     if (onSubmit) {
@@ -102,11 +100,15 @@ export default function CompanyForm({ onSubmit }: CompanyFormProps) {
               name="countryId"
               as="select"
             >
-              {countries?.map((country) => (
-                <option key={country.id} value={country.id}>
-                  {country.title}
-                </option>
-              ))}
+              {countries ? (
+                countries.map((country) => (
+                  <option key={country.id} value={country.id}>
+                    {country.title}
+                  </option>
+                ))
+              ) : (
+                <option>Loading countries...</option>
+              )}
             </InputField>
           </div>
           <div className="flex flex-col flex-1 gap-5">
@@ -118,11 +120,15 @@ export default function CompanyForm({ onSubmit }: CompanyFormProps) {
               name="categoryId"
               as="select"
             >
-              {categories?.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.title}
-                </option>
-              ))}
+              {categories ? (
+                categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.title}
+                  </option>
+                ))
+              ) : (
+                <option>Loading categories...</option>
+              )}
             </InputField>
             <InputField
               required
