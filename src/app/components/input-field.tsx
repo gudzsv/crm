@@ -3,15 +3,12 @@
 import { Field } from 'formik';
 import React from 'react';
 
-export interface InputFieldProps {
-  label: string;
-  id?: string;
-  name: string;
-  placeholder?: string;
-  type?: string;
+export interface InputFieldProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
 }
 
-const InputField = ({ label, id, ...rest }: InputFieldProps) => {
+export default function InputField({ label, id, ...rest }: InputFieldProps) {
   return (
     <div className="flex flex-col">
       {label && (
@@ -26,6 +23,4 @@ const InputField = ({ label, id, ...rest }: InputFieldProps) => {
       />
     </div>
   );
-};
-
-export default InputField;
+}

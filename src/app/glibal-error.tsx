@@ -1,5 +1,8 @@
 'use client';
-const GlobalError = () => {
+
+import React from 'react';
+
+export default function GlobalError() {
   return (
     <html>
       <body>
@@ -9,6 +12,4 @@ const GlobalError = () => {
       </body>
     </html>
   );
-};
-
-export default GlobalError;
+}
